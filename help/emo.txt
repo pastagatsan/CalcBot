@@ -1,0 +1,84 @@
+help;h
+depression;s
+killed;s
+sad;s
+angry;a
+i'm angry;a
+i'm sad;s
+i'm happy;h
+hello;h
+i feel sorry for you;s
+lol;h
+rofl;h
+happy;h
+fuck;a
+shit;a
+cunt;a
+damn;a
+terrible;s
+died;s
+bad;s
+shut up;a
+help me;s
+torture;s
+piss off;a
+so sorry;s
+go away;a
+game;h
+gay;a
+you are gay;a
+you suck;a
+i hate you;a
+hate;a
+hate him;a
+hate them;a
+hate them;a
+so cold;s
+not sad;h
+not sad;h
+not sad;h
+not happy;s
+not happy;s
+not crying;h
+cry;s
+I wont cry;h
+I wont cry;h
+love;h
+love him;h
+love her;h
+love them;h
+emotional;s
+emotional;s
+pain;s
+sorrow;s
+no pain;h
+no sorrow;h
+pain and sorrow don't exist;h
+pain and sorrow don't exist;h
+pain and sorrow don't exist;h
+pain and sorrow don't exist;h
+hungry;s
+hungry;a
+i feel pretty good;h
+i feel pretty good;h
+i feel pretty good;h
+i feel good;h
+i feel good;h
+stop it!;s
+stop it!;a
+stop it!;a
+glory;h
+revenge;a
+revenge;a
+revenge;s
+funny;h
+not angry;h
+not angry;h
+not angry;h
+how are you;h
+how are;h
+loneliness;s
+loneliness;s
+u wot m8;h
+yolo;h
+swag;h

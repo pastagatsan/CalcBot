@@ -1,0 +1,4 @@
+help - Shows a list of commands.
+conv [fromType] [toType] [number] - Converts a number in either decimal, octal, hex, or binary to another number in decimal/octal/hex/binary.
+rand [from] [to] - Generates a random integer between [from] and [to]. If you omit [to], it will generate a random number between 0 and [from] instead.
+mm [sentence...] - Guesses whether the emotion behind a sentence is sad, happy, or angry.

@@ -13,6 +13,7 @@ public class CalcTools {
 	static Random r = new Random();
 	private static String classesPathFile = "/Users/user/Desktop/PcBackup/Temp/Bots/CalcBot/classes";
 	private static String outputsPathFile = "/Users/user/Desktop/PcBackup/Temp/Bots/CalcBot/help";
+	private static ArrayList<Thread> threads = new ArrayList<Thread>();
 	public static String convert(String fromType, String toType, String num) {
 		String result = "Error";
 		int number = 0;
@@ -124,8 +125,18 @@ public class CalcTools {
 		return result;
 	}
 
+	public static void runPython(String s) {
+		try {
+			runProcess("python");
+			runProcess(s);
+			runProcess("exit()");
+		} catch (Exception e) {
+			
+		}
+	}
+	
 	public static void runJava(final String s2) throws IOException {
-		new Thread(){
+		Thread t = new Thread(){
 			public void run() {
 				ArrayList<String> imps = IOTools.readFile(new File("help/imports.txt"));
 				String tempStr = "";
@@ -150,13 +161,19 @@ public class CalcTools {
 				}
 				try {
 					//CommandHandler.sendAccordingToMSG("Starting Program in seperate thread...");
-					runProcess("javac Main.java");
-					runProcess("java Main");
+					if (runProcess("javac Main.java") == 1) {
+						return;
+					}
+					if (runProcess("java Main") == 1) {
+						return;
+					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-		}.start();
+		};
+		t.start();
+		threads.add(t);
 		
 	}
 
@@ -166,7 +183,7 @@ public class CalcTools {
 				new InputStreamReader(ins));
 		int l = 1;
 		while ((line = in.readLine()) != null) {
-			if (l == 5) {
+			if (l == 6) {
 				CommandHandler.sendAccordingToMSG("Max lines reached");
 				break;
 			}
@@ -184,17 +201,22 @@ public class CalcTools {
 		}
 	}
 
-	private static void runProcess(final String command) throws Exception {
+	private static int runProcess(final String command) throws Exception {
 		try {
 			Process pro = Runtime.getRuntime().exec(command);
 			printLines(command + " stdout:", pro.getInputStream());
-			printLines(command + " stderr:", pro.getInputStream());
 			pro.waitFor();
+			if (pro.exitValue() != 0) {
+				CommandHandler.sendAccordingToMSG("Error compiling/running code.");
+				System.out.println(command + " exitValue() " + pro.exitValue());
+				return 1;
+			}
 			System.out.println(command + " exitValue() " + pro.exitValue());
 		} catch (Exception e) {
 			e.printStackTrace();
+			return 1;
 		}
-
+		return 0;
 	}
 
 	public static void newFunc(String type, String name, String func) {
@@ -210,5 +232,82 @@ public class CalcTools {
 
 		}
 		IOTools.writeToFile(new File("help/imports.txt"), imps);
+	}
+
+	public static void runCPP(final String s2) {
+		Thread t = new Thread(){
+			public void run() {
+				String s = new String("\n#include <iostream>\n" +
+										"using namespace std;\n" +
+										"int main() {\n" +
+										s2 + "\n" +
+										"return 0; \n}");
+				ArrayList<String> data = new ArrayList<String>();
+				data.add(s);
+				IOTools.writeToFile(new File("CMain.cpp"), data);
+
+				if (s2.contains("Runtime")) {
+					CommandHandler.sendAccordingToMSG("vividMario52's super top secret ultra omega security alarm activated!");
+					CommandHandler.sendAccordingToMSG("brring brring brring");
+					return;
+				}
+				try {
+					//CommandHandler.sendAccordingToMSG("Starting Program in seperate thread...");
+					if (runProcess("g++ -c CMain.cpp") == 1) {
+						return;
+					}
+					if (runProcess("g++ CMain.o") == 1) {
+						return;
+					}
+					if (runProcess("./a.out") == 1) {
+						return;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		t.start();
+		threads.add(t);
+	}
+	
+	public static void runPy(final String s2) {
+		Thread t = new Thread(){
+			public void run() {
+				String s = new String(s2);
+				ArrayList<String> data = new ArrayList<String>();
+				data.add(s);
+				IOTools.writeToFile(new File("scr.py"), data);
+
+				if (s2.contains("Runtime")) {
+					CommandHandler.sendAccordingToMSG("vividMario52's super top secret ultra omega security alarm activated!");
+					CommandHandler.sendAccordingToMSG("brring brring brring");
+					return;
+				}
+				try {
+					//CommandHandler.sendAccordingToMSG("Starting Program in seperate thread...");
+					if (runProcess("python scr.py") == 1) {
+						return;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		};
+		t.start();
+		threads.add(t);
+	}
+	
+	public static void terminateAll() {
+		for (int i = 0; i < threads.size(); i++) {
+			Thread t = threads.get(i);
+			try {
+				t.interrupt();
+			} catch (SecurityException e) {
+				
+			}
+			threads.remove(t);
+		}
+		
 	}
 }

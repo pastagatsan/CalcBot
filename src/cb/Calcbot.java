@@ -19,7 +19,7 @@ public class Calcbot {
 
 	public static void main(String[] args) {
 		// The server to connect to and our details.
-		String server = "irc.caffie.net";
+		String server = "irc.freenode.net";
 		String nick = "CalcBot";
 		String login = "CalcBot";
 
@@ -85,7 +85,7 @@ public class Calcbot {
 		}
 
 		String line = "";
-		
+		pm("NickServ", "IDENTIFY cakeparty333");
 		try{
 			while ((line = reader.readLine()) != null) {
 				System.out.println("[<<]" + line);

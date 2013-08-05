@@ -20,7 +20,7 @@ public class CommandHandler {
 	}
 
 	public static void userJoinEvent(String user) {
-		
+
 	}
 
 	public static void handleCommand(String _user, String _line, String cmd) {
@@ -28,6 +28,11 @@ public class CommandHandler {
 		line = _line;
 		String[] args = cmd.split(" ");
 		String command = args[0];
+
+		if (user.equals("cyanboy")) {
+			sendAccordingToMSG("Fuck off cyanboy.");
+			return;
+		}
 		
 		switch (command) {
 		case "help":
@@ -40,7 +45,7 @@ public class CommandHandler {
 			if (notEnoughParameters(args, 3)) {
 				return;
 			}
-			
+
 			String answer = CalcTools.convert(args[1], args[2], args[3]);
 			sendAccordingToMSG(answer);
 			break;
@@ -77,8 +82,8 @@ public class CommandHandler {
 				e.printStackTrace();
 				CommandHandler.sendAccordingToMSG("Error");
 			}
-			
-			
+
+
 			break;
 		case "javaimp":
 			if (notEnoughParameters(args, 1)) {
@@ -92,6 +97,45 @@ public class CommandHandler {
 			}
 			String methodDecl = cmd.substring(cmd.indexOf(args[2]), cmd.indexOf("|"));
 			CalcTools.newFunc(args[1], methodDecl, cmd.substring(cmd.indexOf("|") + 1, cmd.length()));
+			break;
+		case "cpp":
+			if (notEnoughParameters(args, 1)) {
+				return;
+			}
+			String s21 = "";
+			for (int i = 1; i < args.length; i++) {
+				s21 = s21.concat(args[i] + " ");
+			}
+			CalcTools.runCPP(s21);
+
+
+			break;
+		case "c++":
+			if (notEnoughParameters(args, 1)) {
+				return;
+			}
+			String s3 = "";
+			for (int i = 1; i < args.length; i++) {
+				s3 = s3.concat(args[i] + " ");
+			}
+			CalcTools.runCPP(s3);
+
+
+			break;
+		case "py":
+			if (notEnoughParameters(args, 1)) {
+				return;
+			}
+			String pystr = "";
+			for (int i = 1; i < args.length; i++) {
+				pystr = pystr.concat(args[i] + " ");
+			}
+			CalcTools.runPy(pystr);
+
+
+			break;
+		case "-ta":
+			CalcTools.terminateAll();
 			break;
 		}
 	}

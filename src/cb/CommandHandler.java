@@ -28,12 +28,6 @@ public class CommandHandler {
 		line = _line;
 		String[] args = cmd.split(" ");
 		String command = args[0];
-
-		if (user.equals("cyanboy")) {
-			sendAccordingToMSG("Fuck off cyanboy.");
-			return;
-		}
-		
 		switch (command) {
 		case "help":
 			ArrayList<String> help = IOTools.readFile(new File("help/help.txt"));
